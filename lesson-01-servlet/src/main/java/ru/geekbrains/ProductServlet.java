@@ -2,6 +2,7 @@ package ru.geekbrains;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.regex.Pattern;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,9 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 import ru.geekbrains.product.Product;
 import ru.geekbrains.product.ProductRepository;
 
-@WebServlet(urlPatterns = "/product")
+@WebServlet(urlPatterns = "/product/*")
 public class ProductServlet extends HttpServlet {
-
+    private static final Pattern PARAM_PATTERN = Pattern.compile("\\/(\\d+)");
     private ProductRepository productRepository;
 
     @Override
