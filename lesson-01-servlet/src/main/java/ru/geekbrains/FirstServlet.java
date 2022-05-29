@@ -20,8 +20,9 @@ public class FirstServlet implements Servlet {
 
     @Override
     public void service(ServletRequest req, ServletResponse res) throws ServletException, IOException {
-
-        res.getWriter().println("<h1>Hello from servlet</h1>");
+        res.setContentType("text/html");
+        res.setCharacterEncoding("utf-8");
+        res.getWriter().println("<h1>Привет from servlet</h1>");
     }
 
     @Override
