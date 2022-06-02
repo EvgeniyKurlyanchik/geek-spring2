@@ -1,5 +1,7 @@
+
+<%@ page import="java.util.List" %>
 <%@ page import="ru.geekbrains.persist.Product" %>
-<%@ page import="ru.geekbrains.ProductServlet" %>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -36,16 +38,35 @@
 <div class="container">
     <div class="row py-2">
         <div class="col-12">
-            <form action="#" method="post">
-                <input type="hidden" id="id" name="id">
-                <div class="form-group">
-                    <label>Product</label>
-                    <input type="text" class="form-control" id="name" name="product" placeholder="Enter Product" value="<%=product.getProduct()%><%!
-        private Product product;
-%>
-                </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
+            <a class="btn btn-primary" href="product_form.jsp">Add Product</a>
+        </div>
+
+        <div class="col-12">
+            <table class="table table-bordered my-2">
+                <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Product</th>
+                    <th scope="col">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <% for (Product product: (List<Product>) request.getAttribute("products")) { %>
+
+                <tr>
+                    <th scope="row"><%= product.getId() %></th>
+                    <td><%= product.getProduct() %></td>
+                    <td>
+                        <a class="btn btn-success" href="product_form.jsp"><i class="fas fa-edit"></i></a>
+                        <a class="btn btn-danger" href="#"><i class="far fa-trash-alt"></i></a>
+                    </td>
+                </tr>
+
+                <% } %>
+
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
@@ -61,7 +82,5 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
-
 </body>
-
 </html>

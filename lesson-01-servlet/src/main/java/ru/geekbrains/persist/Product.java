@@ -1,4 +1,4 @@
-package ru.geekbrains.product;
+package ru.geekbrains.persist;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
