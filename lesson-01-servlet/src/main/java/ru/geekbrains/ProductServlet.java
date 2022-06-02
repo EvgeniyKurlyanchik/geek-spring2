@@ -2,6 +2,7 @@ package ru.geekbrains;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -33,20 +34,38 @@ public class ProductServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        PrintWriter wr = resp.getWriter();
-        wr.println("<table>");
-        wr.println("<tr>");
-        wr.println("<th>   Id   </th>");
-        wr.println("<th>product</th>");
-        wr.println("</tr>");
-        for (Product product : productRepository.findAll()) {
+        if (req.getPathInfo() == null || req.getPathInfo().equals("/")) {
+            PrintWriter wr = resp.getWriter();
+            wr.println("<table>");
             wr.println("<tr>");
-            wr.println("<td>"+ product.getId() +"</td>");
-            wr.println("<td>"+ product.getProduct() +"</td>");
-            wr.println("<tr>");
+            wr.println("<th>   Id   </th>");
+            wr.println("<th>product</th>");
+            wr.println("</tr>");
+            for (Product product : productRepository.findAll()) {
+                wr.println("<tr>");
+                wr.println("<td><a href='"+ req.getContextPath() + "/product/" + product.getId() + "'>" + product.getId() + "</a></td>");
+                wr.println("<td>" + product.getProduct() + "</td>");
+                wr.println("<tr>");
+            }
+
+            wr.println("</table>");
+        } else {
+            Matcher matcher = PARAM_PATTERN.matcher(req.getPathInfo());
+            if(matcher.matches()){
+                long id = Long.parseLong(matcher.group(1));
+                Product product = this.productRepository.findById(id);
+                if (product == null) {
+                   resp.getWriter().println("Product not found");
+                   resp.setStatus(404);
+                   return;
+                }
+                resp.getWriter().println("<p>Id = " + product.getId()+ "</p>");
+                resp.getWriter().println("<p>Product = " + product.getProduct() + "</p>");
+            }else {
+                resp.getWriter().println("BAd parameter value");
+                resp.setStatus(400);
+
+            }
         }
-
-        wr.println("</table>");
     }
-
     }
