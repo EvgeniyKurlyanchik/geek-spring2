@@ -1,5 +1,5 @@
 <%@ page import="ru.geekbrains.persist.Product" %>
-<%@ page import="ru.geekbrains.ProductServlet" %>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -39,10 +39,10 @@
             <form action="#" method="post">
                 <input type="hidden" id="id" name="id">
                 <div class="form-group">
-                    <label>Product</label>
-                    <input type="text" class="form-control" id="name" name="product" placeholder="Enter Product" value="<%=product.getProduct()%><%!
+                    <label>products</label>
+                    <input type="text" class="form-control" id="name" name="username" placeholder="Enter username" value="<%=product.getProduct()%><%!
         private Product product;
-%>
+%>">
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
