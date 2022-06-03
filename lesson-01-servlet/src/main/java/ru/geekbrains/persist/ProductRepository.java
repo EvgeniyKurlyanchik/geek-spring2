@@ -1,4 +1,4 @@
-package ru.geekbrains.product;
+package ru.geekbrains.persist;
 
 import java.util.ArrayList;
 import java.util.List;
